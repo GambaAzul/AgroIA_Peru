@@ -236,6 +236,20 @@ function previsualizarImagen(evento) {
     lector.readAsDataURL(archivo);
 }
 
+
+
+function prepararCanvas(canvasId, altoDeseado = 300) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return null;
+    const ancho = Math.max(220, Math.round(canvas.parentElement?.clientWidth || canvas.clientWidth || canvas.width || 220));
+    const alto = Math.max(200, altoDeseado);
+    canvas.width = ancho;
+    canvas.height = alto;
+    canvas.style.width = '100%';
+    canvas.style.height = `${alto}px`;
+    return canvas.getContext('2d');
+}
+
 function actualizarKpis() {
     const resumen = estado.resumen || {};
     const metricas = estado.metricas || {};
@@ -250,7 +264,8 @@ function actualizarKpis() {
 
 function dibujarGraficoRiesgo() {
     const canvas = document.getElementById('graficoRiesgo');
-    const ctx = canvas.getContext('2d');
+    const ctx = prepararCanvas('graficoRiesgo', window.innerWidth <= 430 ? 230 : 300);
+    if (!canvas || !ctx) return;
     const datos = estado.resumen?.por_riesgo || {};
     const valores = ['Alto', 'Medio', 'Bajo'].map((nombre) => ({ nombre, valor: datos[nombre] || 0, color: coloresRiesgo[nombre] }));
     const total = valores.reduce((suma, item) => suma + item.valor, 0);
@@ -259,8 +274,8 @@ function dibujarGraficoRiesgo() {
 
     const centroX = canvas.width / 2;
     const centroY = canvas.height / 2;
-    const radio = 105;
-    const grosor = 42;
+    const radio = Math.max(58, Math.min(105, Math.min(canvas.width, canvas.height) / 2 - 34));
+    const grosor = Math.max(22, Math.min(42, radio * 0.38));
 
     if (!total) {
         dibujarTextoCentro(ctx, 'Sin datos', centroX, centroY);
@@ -295,7 +310,8 @@ function dibujarGraficoRiesgo() {
 
 function dibujarGraficoCultivos() {
     const canvas = document.getElementById('graficoCultivos');
-    const ctx = canvas.getContext('2d');
+    const ctx = prepararCanvas('graficoCultivos', window.innerWidth <= 430 ? 240 : 300);
+    if (!canvas || !ctx) return;
     const datos = estado.resumen?.por_cultivo || {};
     const entradas = Object.entries(datos).sort((a, b) => b[1] - a[1]);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -306,7 +322,7 @@ function dibujarGraficoCultivos() {
         return;
     }
 
-    const margen = 48;
+    const margen = window.innerWidth <= 430 ? 22 : 48;
     const anchoDisponible = canvas.width - margen * 2;
     const altoDisponible = canvas.height - 70;
     const maximo = Math.max(...entradas.map(([, valor]) => valor));
@@ -337,7 +353,7 @@ function dibujarGraficoCultivos() {
         ctx.textAlign = 'center';
         ctx.fillText(valor, x + anchoBarra / 2, y - 10);
         ctx.fillStyle = '#b9c9bd';
-        ctx.font = '700 12px system-ui';
+        ctx.font = `${window.innerWidth <= 430 ? '600 10px' : '700 12px'} system-ui`;
         ctx.fillText(nombre, x + anchoBarra / 2, canvas.height - 18);
         estado.barrasCultivo.push({ nombre, valor, x, y, ancho: anchoBarra, alto });
     });
@@ -1124,3 +1140,15 @@ function formatearFecha(valor) {
     if (!valor) return '';
     return new Date(valor).toLocaleString('es-PE', { dateStyle: 'short', timeStyle: 'short' });
 }
+
+
+window.addEventListener('resize', () => {
+    clearTimeout(window.__agroiaResizeTimer);
+    window.__agroiaResizeTimer = setTimeout(() => {
+        dibujarGraficoRiesgo();
+        dibujarGraficoCultivos();
+        if (estado.mapaLeaflet) {
+            estado.mapaLeaflet.invalidateSize();
+        }
+    }, 140);
+});

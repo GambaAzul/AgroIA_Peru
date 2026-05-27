@@ -2323,3 +2323,187 @@ table td:last-child {
         min-height: 380px;
     }
 }
+
+
+/* ===== V13: correcciones iPhone / pantallas angostas ===== */
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+img, canvas, svg {
+    max-width: 100%;
+    display: block;
+}
+
+.grafico-card,
+.mapa-card,
+.metricas-ia-card,
+.formulario-panel,
+.importar-panel,
+.historial-panel {
+    overflow: hidden;
+}
+
+.matriz-contenedor,
+.tabla-contenedor,
+.arbol-layout,
+.arbol-decision,
+.modal-contenido {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    font-size: 16px;
+}
+
+@media (max-width: 430px) {
+    .barra-lateral {
+        margin: 10px !important;
+        padding: 16px !important;
+        gap: 16px !important;
+    }
+
+    .contenido {
+        padding: 0 10px 22px !important;
+    }
+
+    .panel,
+    .hero-texto,
+    .hero-visual,
+    .metrica {
+        padding: 16px !important;
+        border-radius: 22px !important;
+    }
+
+    .cabecera-panel,
+    .cabecera-panel.grande {
+        display: grid !important;
+        gap: 10px !important;
+    }
+
+    .cabecera-panel .boton,
+    .cabecera-panel.grande .boton {
+        width: 100% !important;
+    }
+
+    .hero h1 {
+        font-size: clamp(1.9rem, 10.2vw, 2.8rem) !important;
+        line-height: 0.97 !important;
+    }
+
+    .hero p,
+    .cabecera-panel p,
+    .metricas-ia-card p,
+    .lista-recomendaciones li,
+    .bloque-explicacion p,
+    .bloque-explicacion li {
+        font-size: 0.95rem !important;
+    }
+
+    .grafico-card canvas {
+        width: 100% !important;
+        height: 230px !important;
+    }
+
+    .mapa-leaflet,
+    .mapa-peru-cuadrado {
+        min-height: 300px !important;
+    }
+
+    .rejilla-dashboard,
+    .metricas,
+    .formulario,
+    .filtros,
+    .analisis-datos,
+    .pipeline-ia,
+    .ruta-decision,
+    .rejilla-metricas-ia,
+    .rejilla-explicacion,
+    .rejilla-zonas,
+    .ramas-compactas {
+        grid-template-columns: 1fr !important;
+    }
+
+    .tarjeta-metrica-ia {
+        padding: 14px !important;
+    }
+
+    .tarjeta-metrica-ia strong {
+        font-size: 1.28rem !important;
+    }
+
+    .tabla-matriz {
+        min-width: 560px;
+    }
+
+    .formulario .campo,
+    .formulario .ancho-2,
+    .formulario .ancho-total,
+    .filtros > * {
+        grid-column: auto !important;
+        min-width: 0 !important;
+    }
+
+    .importador {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        align-items: stretch !important;
+    }
+
+    .importador input,
+    .importador .boton {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .detalle-ia span,
+    .factores-detectados span,
+    .item-leyenda {
+        font-size: 0.82rem !important;
+    }
+
+    .votos-bosque div {
+        grid-template-columns: 42px 1fr 36px !important;
+    }
+
+    .notificacion {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 390px) {
+    .marca {
+        align-items: flex-start;
+    }
+
+    .marca img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .hero-visual {
+        min-height: 240px !important;
+    }
+
+    .pulso {
+        font-size: 0.8rem !important;
+        padding: 7px 10px !important;
+    }
+
+    .cabecera-panel h2,
+    .metricas-ia-card h2 {
+        font-size: 1.18rem !important;
+    }
+
+    .nodo-compacto,
+    .rama-compacta,
+    .subnodo-compacto {
+        padding: 14px !important;
+    }
+}
