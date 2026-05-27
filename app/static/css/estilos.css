@@ -773,6 +773,130 @@ td {
     }
 }
 
+
+
+@media (max-width: 760px) {
+    html, body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .barra-lateral {
+        margin: 12px;
+        padding: 18px;
+        gap: 18px;
+        border-radius: 24px;
+    }
+
+    .contenido {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 12px 28px;
+    }
+
+    .hero {
+        min-height: auto;
+        gap: 14px;
+        margin-bottom: 16px;
+    }
+
+    .hero-texto {
+        padding: 20px 18px 22px;
+    }
+
+    .hero h1 {
+        font-size: clamp(2rem, 9vw, 3.1rem);
+        line-height: 0.96;
+        margin: 16px 0 12px;
+    }
+
+    .hero p {
+        font-size: 0.98rem;
+        line-height: 1.55;
+    }
+
+    .acciones-hero {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .acciones-hero .boton.fantasma {
+        grid-column: 1 / -1;
+    }
+
+    .boton {
+        width: 100%;
+        min-height: 46px;
+        padding: 12px 14px;
+    }
+
+    .hero-visual {
+        min-height: 300px;
+    }
+
+    .hero-visual img {
+        object-position: center center;
+    }
+
+    .pulso {
+        padding: 8px 12px;
+        font-size: 0.88rem;
+    }
+
+    .metricas {
+        gap: 12px;
+    }
+
+    .metrica {
+        min-width: 0;
+    }
+
+    .mapa-card,
+    .panel,
+    .hero-texto,
+    .hero-visual,
+    .metrica {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .cabecera-panel h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .marca strong {
+        font-size: 1.15rem;
+    }
+
+    .marca span {
+        font-size: 0.74rem;
+    }
+
+    .acciones-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .acciones-hero .boton.fantasma {
+        grid-column: auto;
+    }
+
+    .hero-visual {
+        min-height: 260px;
+    }
+
+    .pulso-alto { top: 12%; right: 8%; }
+    .pulso-medio { left: 7%; top: 42%; }
+    .pulso-bajo { right: 10%; bottom: 12%; }
+
+    .mapa-leaflet,
+    .mapa-peru-cuadrado {
+        min-height: 320px;
+    }
+}
+
 /* ===== AgroIA V2: métricas del modelo ===== */
 .ia-metrica {
     border-color: rgba(51, 196, 129, 0.32);
